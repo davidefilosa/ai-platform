@@ -6,7 +6,7 @@ export const Loader = () => {
       <div className="w-4 h-16 relative animate-bounce">
         <Image alt="Logo" src="/logo.png" width={16} height={32} />
       </div>
-      <p className="text-sm text-muted-foreground">Genius is thinking...</p>
+      <p className="text-sm text-muted-foreground">Genō is thinking...</p>
     </div>
   );
 };
