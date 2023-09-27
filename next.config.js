@@ -5,6 +5,7 @@ const nextConfig = {
       {
         hostname: "oaidalleapiprodscus.blob.core.windows.net",
       },
+      { hostname: "replicate.delivery" },
     ],
   },
 };
