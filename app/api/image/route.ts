@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import { Configuration, OpenAIApi } from "openai";
+import { incrementApiLimit, checkApiLimit } from "@/lib/api-limits";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -24,6 +25,12 @@ export async function POST(req: Request) {
       });
     }
 
+    const freeTrial = await checkApiLimit();
+
+    if (!freeTrial) {
+      return new NextResponse("Free trial has expired", { status: 403 });
+    }
+
     if (!prompt) {
       return new NextResponse("Prompt is required", { status: 400 });
     }
@@ -41,6 +48,8 @@ export async function POST(req: Request) {
       n: parseInt(amount, 10),
       size: resolution,
     });
+
+    await incrementApiLimit();
 
     return NextResponse.json(response.data.data);
   } catch (error) {
