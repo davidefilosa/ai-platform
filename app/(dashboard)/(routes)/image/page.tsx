@@ -25,8 +25,10 @@ import {
 } from "@/components/ui/select";
 
 import { amountOptions, formSchema, resolutionOptions } from "./constants";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 const PhotoPage = () => {
+  const proModal = useProModal();
   const router = useRouter();
   const [photos, setPhotos] = useState<string[]>([]);
 
@@ -51,7 +53,11 @@ const PhotoPage = () => {
 
       setPhotos(urls);
     } catch (error: any) {
-      console.log(error);
+      if (error?.response?.status === 403) {
+        proModal.onOpen();
+      } else {
+        console.log(error);
+      }
     } finally {
       router.refresh();
     }
