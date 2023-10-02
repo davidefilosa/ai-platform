@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Check, Zap } from "lucide-react";
 
 import { tools } from "@/constants";
+import { toast } from "react-hot-toast";
 
 import { useProModal } from "@/hooks/use-pro-modal";
 import { Card } from "./ui/card";
@@ -32,6 +33,7 @@ const ProModal = () => {
       window.location.href = response.data.url;
     } catch (error) {
       console.log("[STRIPE CLIENT ERROERE]", error);
+      toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }

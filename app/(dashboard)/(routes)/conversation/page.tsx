@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
+import { toast } from "react-hot-toast";
 
 import { formSchema } from "./constants";
 import Empty from "@/components/empty";
@@ -55,6 +56,7 @@ const ConversationPage = () => {
         proModal.onOpen();
       } else {
         console.log(error);
+        toast.error("Something went wrong");
       }
     } finally {
       router.refresh();
